@@ -1,4 +1,4 @@
-import { Billing, PackageType } from './billing';
+import { Billing, PackageType, } from './billing';
 
 describe('[Strategy - begin] Generate monthly billing based-on total hours and package type', () => {
   it('should always return package price for fixed package', () => {
@@ -28,12 +28,38 @@ describe('[Strategy - begin] Generate monthly billing based-on total hours and p
   it('should always return 0 for unknown package', () => {
     // given
     const totalHours = 10;
-    const packageType = 'UNKNOWN';
+    const packageType = PackageType.UNKNOWN;
 
     // when
     const billing = new Billing(totalHours, packageType);
 
     // then
     expect(billing.monthlyBill()).toBe(0);
+  });
+
+  it('should return 50 when total hours less than or equal to 50', () => {
+
+    //given
+    const totalHours = 50;
+    const packageType = PackageType.STEPPING;
+
+    //when
+    const billing = new Billing(totalHours, packageType);
+
+    // then
+    expect(billing.monthlyBill()).toBe(50);
+  });
+
+  it('should return 53.5 (vat included) when total hours less than or equal to 50', () => {
+
+    //given
+    const totalHours = 50;
+    const packageType = PackageType.STEPPING;
+
+    //when
+    const billing = new Billing(totalHours, packageType);
+
+    // then
+    expect(billing.monthlyBill()).toBe(53.5);
   });
 });
