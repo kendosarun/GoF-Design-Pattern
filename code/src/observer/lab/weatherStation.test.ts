@@ -21,4 +21,27 @@ describe('[Observer - begin] Weather station measurement changed', () => {
       'Forecast: More of the same'
     );
   });
+
+  it('should be called  notify observer', () => {
+    // given
+    const weatherStation = new WeatherStation();
+    const data = new WeatherData(32.0, 0.8, 1.0);
+    const observer1 = {
+      update: jest.fn(),
+    };
+    const observer2 = {
+      update: jest.fn(),
+    };
+    weatherStation.registerObserver(observer1);
+    weatherStation.registerObserver(observer2);
+
+    // when
+    weatherStation.update(data);
+
+    // then
+    expect(observer1.update).toBeCalledWith(data);
+    expect(observer2.update).toBeCalledWith(data);
+   
+  });
+
 });
