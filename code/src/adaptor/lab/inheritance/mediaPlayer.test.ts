@@ -1,3 +1,4 @@
+import { YoutubeAdapter } from 'adaptor/finish/inheritance/youtubeAdapter';
 import { MediaPlayer } from './mediaPlayer';
 import { SpotifyAPI } from './spotifyAPI';
 
@@ -24,5 +25,11 @@ describe('Media Player', () => {
 
   it('should be able to play musics from Youtube playlist, with Adaptor pattern.', () => {
     //TODO
+    const mediaPlayer = new MediaPlayer();
+    const youtubeAdapter = new YoutubeAdapter();
+
+    mediaPlayer.setProvider(youtubeAdapter) = mediaPlayer.getPlaylist();
+
+    expect(youtubeAdapter).toEqual(mediaPlayer.setProvider);
   });
 });
